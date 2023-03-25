@@ -1,17 +1,22 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+$datalist = DB::table('categories')->get();
+?>
+
 <header class="tech-header header">
     <div class="container-fluid">
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="tech-index.html"><img src="{{asset('assets')}}/images/version/tech-logo.png" alt=""></a>
+            <a class="navbar-brand" href="{{route('home')}}"><img src="{{asset('assets')}}/images/version/tech-logo.png" alt=""></a>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="tech-index.html">Home</a>
+                        <a class="nav-link" href="{{route('home')}}">Home</a>
                     </li>
                     <li class="nav-item dropdown has-submenu menu-large hidden-md-down hidden-sm-down hidden-xs-down">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">News</a>
+                        <a class="nav-link dropdown-toggle" href="{{route('category')}}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                         <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">
                             <li>
                                 <div class="container">
