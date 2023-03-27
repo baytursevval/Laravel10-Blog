@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.0
+- https://www.phpmyadmin.net
+-
+- Anamakine: 127.0.0.1
+- Üretim Zamanı: 27 Mar 2023, 12:39:07
+- Sunucu sürümü: 10.4.27-MariaDB
+- PHP Sürümü: 8.2.0
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="blog1" collation="utf8mb4_general_ci" charset="utf8mb4">
+            <pma:table name="blogs">
+                CREATE TABLE `blogs` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `title` varchar(150) NOT NULL,
+                  `keywords` varchar(255) DEFAULT NULL,
+                  `description` varchar(255) DEFAULT NULL,
+                  `image` varchar(100) DEFAULT NULL,
+                  `category_id` int(11) DEFAULT NULL,
+                  `user_id` int(11) DEFAULT NULL,
+                  `detail` text DEFAULT NULL,
+                  `status` varchar(255) DEFAULT &#039;False&#039;,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="categories">
+                CREATE TABLE `categories` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `title` varchar(150) NOT NULL,
+                  `keywords` varchar(255) DEFAULT NULL,
+                  `description` varchar(255) DEFAULT NULL,
+                  `image` varchar(100) DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="comments">
+                CREATE TABLE `comments` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `comment` varchar(255) DEFAULT NULL,
+                  `blog_id` varchar(255) DEFAULT NULL,
+                  `user_id` int(11) DEFAULT NULL,
+                  `status` varchar(20) NOT NULL DEFAULT &#039;False&#039;,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="failed_jobs">
+                CREATE TABLE `failed_jobs` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `uuid` varchar(255) NOT NULL,
+                  `connection` text NOT NULL,
+                  `queue` text NOT NULL,
+                  `payload` longtext NOT NULL,
+                  `exception` longtext NOT NULL,
+                  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="migrations">
+                CREATE TABLE `migrations` (
+                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                  `migration` varchar(255) NOT NULL,
+                  `batch` int(11) NOT NULL,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="password_reset_tokens">
+                CREATE TABLE `password_reset_tokens` (
+                  `email` varchar(255) NOT NULL,
+                  `token` varchar(255) NOT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`email`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="personal_access_tokens">
+                CREATE TABLE `personal_access_tokens` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `tokenable_type` varchar(255) NOT NULL,
+                  `tokenable_id` bigint(20) unsigned NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  `token` varchar(64) NOT NULL,
+                  `abilities` text DEFAULT NULL,
+                  `last_used_at` timestamp NULL DEFAULT NULL,
+                  `expires_at` timestamp NULL DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+                  KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="sessions">
+                CREATE TABLE `sessions` (
+                  `id` varchar(255) NOT NULL,
+                  `user_id` bigint(20) unsigned DEFAULT NULL,
+                  `ip_address` varchar(45) DEFAULT NULL,
+                  `user_agent` text DEFAULT NULL,
+                  `payload` longtext NOT NULL,
+                  `last_activity` int(11) NOT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `sessions_user_id_index` (`user_id`),
+                  KEY `sessions_last_activity_index` (`last_activity`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="teams">
+                CREATE TABLE `teams` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `user_id` bigint(20) unsigned NOT NULL,
+                  `name` varchar(255) NOT NULL,
+                  `personal_team` tinyint(1) NOT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  KEY `teams_user_id_index` (`user_id`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="team_invitations">
+                CREATE TABLE `team_invitations` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `team_id` bigint(20) unsigned NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  `role` varchar(255) DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `team_invitations_team_id_email_unique` (`team_id`,`email`),
+                  CONSTRAINT `team_invitations_team_id_foreign` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="team_user">
+                CREATE TABLE `team_user` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `team_id` bigint(20) unsigned NOT NULL,
+                  `user_id` bigint(20) unsigned NOT NULL,
+                  `role` varchar(255) DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `team_user_team_id_user_id_unique` (`team_id`,`user_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="users">
+                CREATE TABLE `users` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  `email_verified_at` timestamp NULL DEFAULT NULL,
+                  `password` varchar(255) NOT NULL,
+                  `two_factor_secret` text DEFAULT NULL,
+                  `two_factor_recovery_codes` text DEFAULT NULL,
+                  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
+                  `remember_token` varchar(100) DEFAULT NULL,
+                  `current_team_id` bigint(20) unsigned DEFAULT NULL,
+                  `profile_photo_path` varchar(2048) DEFAULT NULL,
+                  `company` varchar(255) DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `users_email_unique` (`email`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+            <pma:table name="users1">
+                CREATE TABLE `users1` (
+                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `name` varchar(255) NOT NULL,
+                  `email` varchar(255) NOT NULL,
+                  `email_verified_at` timestamp NULL DEFAULT NULL,
+                  `password` varchar(255) NOT NULL,
+                  `two_factor_secret` text DEFAULT NULL,
+                  `two_factor_recovery_codes` text DEFAULT NULL,
+                  `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
+                  `remember_token` varchar(100) DEFAULT NULL,
+                  `current_team_id` bigint(20) unsigned DEFAULT NULL,
+                  `profile_photo_path` varchar(2048) DEFAULT NULL,
+                  `company` varchar(255) DEFAULT NULL,
+                  `created_at` timestamp NULL DEFAULT NULL,
+                  `updated_at` timestamp NULL DEFAULT NULL,
+                  PRIMARY KEY (`id`),
+                  UNIQUE KEY `users_email_unique` (`email`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Veritabanı: 'blog1'
+    -->
+    <database name="blog1">
+        <!-- Tablo blogs -->
+        <table name="blogs">
+            <column name="id">1</column>
+            <column name="title">Android Geliştirici Seçenekleri ile Neler Yapabilirsiniz?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/HTrKstoFqRhzTKO4zPdUWzE4qlcVtpfmDexfUbuC.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Yapay zeka (YZ) veya İngilizce adıyla artificial intelligence (AI), bir bilgisayar sisteminin insan benzeri şekilde düşünebilmesine, öğrenebilmesine, karar verebilmesine ve problem çözebilmesine olanak tanıyan bir bilgisayar teknolojisi alanıdır. YZ, insanların dijital ortamda doğal olarak yapabileceği pek çok görevi gerçekleştirebilir ve bunları uygun koşullar altında daha hızlı, daha doğru ve daha verimli bir şekilde yapabilir.
+
+Yapay zeka birçok farklı teknik ve yaklaşımı içerir. Bunlar arasında makine öğrenmesi (machine learning) (?), doğal dil işleme, derin öğrenme (deep learning) (?), görüntü işleme, uzman sistemler ve robotik (?) gibi teknolojiler bulunur. Makine öğrenmesi, YZ’nin en popüler yaklaşımıdır ve bir bilgisayarın belirli bir görevi gerçekleştirmek için verileri analiz edip model öğrenmesine olanak tanır. Derin öğrenme ise, yapay sinir ağları kullanarak çok sayıda veri setini analiz etme yeteneğine dayanır.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-25 10:49:05</column>
+            <column name="updated_at">2023-03-27 09:18:50</column>
+        </table>
+        <table name="blogs">
+            <column name="id">2</column>
+            <column name="title">Docker Nedir ve Nasıl Kullanılır?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/kkG8m76JtPeWpecWjKoX6H54N2BluJbrjLPMFo5e.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Yapay zeka (YZ) veya İngilizce adıyla artificial intelligence (AI), bir bilgisayar sisteminin insan benzeri şekilde düşünebilmesine, öğrenebilmesine, karar verebilmesine ve problem çözebilmesine olanak tanıyan bir bilgisayar teknolojisi alanıdır. YZ, insanların dijital ortamda doğal olarak yapabileceği pek çok görevi gerçekleştirebilir ve bunları uygun koşullar altında daha hızlı, daha doğru ve daha verimli bir şekilde yapabilir.
+
+Yapay zeka birçok farklı teknik ve yaklaşımı içerir. Bunlar arasında makine öğrenmesi (machine learning) (?), doğal dil işleme, derin öğrenme (deep learning) (?), görüntü işleme, uzman sistemler ve robotik (?) gibi teknolojiler bulunur. Makine öğrenmesi, YZ’nin en popüler yaklaşımıdır ve bir bilgisayarın belirli bir görevi gerçekleştirmek için verileri analiz edip model öğrenmesine olanak tanır. Derin öğrenme ise, yapay sinir ağları kullanarak çok sayıda veri setini analiz etme yeteneğine dayanır.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-25 10:49:57</column>
+            <column name="updated_at">2023-03-27 09:19:42</column>
+        </table>
+        <table name="blogs">
+            <column name="id">5</column>
+            <column name="title">Araç muayenesinde yeni karar: 30 Eylül&#039;e kadar sürecek</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/2FMGzWjjyWlC9SQNpcZbbNHMwATBgVmtwyGN549m.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Yapay zeka (YZ) veya İngilizce adıyla artificial intelligence (AI), bir bilgisayar sisteminin insan benzeri şekilde düşünebilmesine, öğrenebilmesine, karar verebilmesine ve problem çözebilmesine olanak tanıyan bir bilgisayar teknolojisi alanıdır. YZ, insanların dijital ortamda doğal olarak yapabileceği pek çok görevi gerçekleştirebilir ve bunları uygun koşullar altında daha hızlı, daha doğru ve daha verimli bir şekilde yapabilir.
+
+Yapay zeka birçok farklı teknik ve yaklaşımı içerir. Bunlar arasında makine öğrenmesi (machine learning) (?), doğal dil işleme, derin öğrenme (deep learning) (?), görüntü işleme, uzman sistemler ve robotik (?) gibi teknolojiler bulunur. Makine öğrenmesi, YZ’nin en popüler yaklaşımıdır ve bir bilgisayarın belirli bir görevi gerçekleştirmek için verileri analiz edip model öğrenmesine olanak tanır. Derin öğrenme ise, yapay sinir ağları kullanarak çok sayıda veri setini analiz etme yeteneğine dayanır.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-25 12:09:21</column>
+            <column name="updated_at">2023-03-27 09:19:49</column>
+        </table>
+        <table name="blogs">
+            <column name="id">6</column>
+            <column name="title">Süper hücre nedir?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/9tQMOgtosxpXvhdmjqZLIZuVZoK6Q7c3kyk6MUoo.jpg</column>
+            <column name="category_id">2</column>
+            <column name="user_id">1</column>
+            <column name="detail">Süper hücre fırtınası veya sadece “süper hücre” olarak da bilinen bu terim, yoğun gök gürültülü fırtınaların en tehlikeli türlerinden birini ifade eder. Super hücre fırtınaları genellikle yüksek rüzgar hızları, dolu, şiddetli yağışlar, şimşek, yıldırım ve hatta tornado veya kasırgalar gibi özellikleriyle tanınır.
+
+Bu fırtınalar diğer gök gürültülü fırtınalardan farklı olarak özellikle büyük, tek bir hücreden oluşan bir süreçtir. Bu hücre, diğer hücrelerin aksine, uzun süre boyunca tek başına kalabilen, oldukça organize olmuş bir hava kümesidir.
+
+Super hücre fırtınaları, yoğun yağışlar, şimşekler ve yıldırımlar nedeniyle özellikle tehlikeli olabilir. Ayrıca hızlı rüzgarlar nedeniyle büyük çaplı hasar, hatta ölümler ve yaralanmalar da görülebilir. Bu nedenle super hücre fırtınaları hava durumu uzmanları tarafından yakından takip edilir ve insanlar gerekli önlemleri almaya teşvik edilir.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 12:58:14</column>
+            <column name="updated_at">2023-03-27 09:21:33</column>
+        </table>
+        <table name="blogs">
+            <column name="id">7</column>
+            <column name="title">Influencer ajansı nedir?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/zltSJPfUHknYjSeeQGhwZp45Uqzu51Yv9hgzTusV.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Influencer sosyal medya platformlarında takipçileri olan ve bu takipçileri üzerinde yüksek bir etki gücüne sahip olan kişidir. Genellikle moda, güzellik, sağlık, yemek, seyahat, eğlence gibi konularda uzmanlaşmış veya belirli, niş konulara odaklanmış kişilerdir. Influencer’lar, takipçileriyle doğrudan etkileşim kurarlar ve onların satın alma kararlarını etkilerler.
+
+İşletmeler Influencer’ların takipçileri arasında popüler olduğunu ve etkileşim stratejileri doğru bir şekilde kullanıldığında ürünlerinin satışlarını artırabileceğini fark etmişlerdir. Bu nedenle, Influencer’lar işletmelerin ürünlerini tanıtmak için sık sık tercih ettiği bir pazarlama aracı haline gelmiştir.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 12:59:30</column>
+            <column name="updated_at">2023-03-27 09:22:32</column>
+        </table>
+        <table name="blogs">
+            <column name="id">8</column>
+            <column name="title">Evcil hayvanlar için sigorta var mı?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/DMirvJg4GxD4wTOspjvk2Gwo6RJZoaKTYi63u2ra.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Hayatımızda önemli bir yeri olan evcil hayvanlar için sigorta uygulamaları giderek yaygınlaşıyor. Can dostlarımız için düzenlenen sigorta poliçeleri ile beklenmeyen kazalar, ani hastalıklar gibi durumlarda kolaylıkla veteriner hekim muayenesine ulaşmak ve bütçe koşullarını düşünmeden gerekenleri yapmak artık mümkün.
+
+Evcil hayvan sigorta poliçeleri pet sigortası, pati sigortası, patim güvende gibi çeşitli isimlerle anılırken sağladığı avantajlar ile can simidi haline gelmiş durumda. Kedi ve köpeklerin acil hastalık veya kaza durumlarında anlaşmalı ya da anlaşmalı olmayan tüm kliniklerde muayene ve tedavi hizmeti alınabilmesini sağlayan evcil hayvan sağlık sigortası yaptırmak hem patili dostların hem de sahiplerinin yüzünü güldürüyor.
+
+Bazı pet sigortası poliçeleri ile sunulan yılda bir kez ücretsiz veteriner muayenesi, yılda bir kez ücretsiz göz ve kulak temizliği, yılda bir kez ücretsiz tırnak kesimi gibi ilave avantajlar, sağlanan faydanın katlanması anlamına gelebilir. Bazı sigorta şirketleri çeşitli klinikler ile anlaşmalar yaparak mikroçip uygulaması ve köpek eğitim hizmetleri gibi alanlarda ilave indirimler de sunabilmektedir.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 13:00:09</column>
+            <column name="updated_at">2023-03-27 09:21:06</column>
+        </table>
+        <table name="blogs">
+            <column name="id">9</column>
+            <column name="title">Blockchain nedir? Hangi amaçla kullanılır?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/KhEILhrlZg4n4jJZf1Etd3lYvhWQedUqTLBzj6Vm.jpg</column>
+            <column name="category_id">1</column>
+            <column name="user_id">1</column>
+            <column name="detail">Blockchain, kelime anlamı olarak “blok zinciri” anlamına gelir. Blockchain, bir dijital defterdir ve birden fazla bilgisayar arasında dağıtılmıştır. Bu defterde yapılan her işlem bir blok olarak kaydedilir ve her blok, önceki blokla birlikte bir zincir oluşturur. Bu nedenle, “blok zinciri” olarak adlandırılır.
+
+Blockchain, merkezi olmayan bir yapıya sahiptir ve işlemleri doğrulamak için karmaşık bir kriptografi kullanır. Bu nedenle, blockchain teknolojisi, birçok farklı alanda kullanılmaktadır. Özellikle finansal işlemler, sağlık hizmetleri, lojistik, emlak alanlarında ve bazı hükümetler tarafından çok çeşitli amaçlarla kullanılmaktadır. Blockchain teknolojisi sayesinde merkezi otoritelerin güvenlik, gizlilik ve sahtecilik gibi sorunlarla mücadelesine yardımcı olunmaktadır.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 13:00:48</column>
+            <column name="updated_at">2023-03-27 09:20:48</column>
+        </table>
+        <table name="blogs">
+            <column name="id">10</column>
+            <column name="title">Web sitesi kurma</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/RZLzFrtP0Wi6EaFZHdKRgnMRabZpZfHpa3sY82FN.jpg</column>
+            <column name="category_id">3</column>
+            <column name="user_id">1</column>
+            <column name="detail">Site oluşturucular sitenin düzen, tarz ve renklerine kadar belirlemiş kalıplar içerir. Sizin yapmanız gereken tasarlanmış şablonlar arasından bir seçim yapmaktır. Seçim yaptıktan sonra şablonlara içerik ve görseller eklenerek işlem sonlandırılır. Bazı oluşturucular içlerinden seçim yapılabilecek uygulamalarda sunar. Bu uygulamalar sayesinde siteye işlevsellik ekler ve daha fonksiyonel olması sağlanır. Randevu alma, haber bülteni gibi daha birçok özelliği ücretsiz ekleyebilirsiniz. Çoğu oluşturucu site, tamamen ücretsiz ya da ücretsiz deneme imkanları sağlamaktadır. En iyi site oluşturucuları sayfasından kendinize uygun siteyi seçebilirsiniz.
+
+Site oluşturucular ile Web sitesi kurma</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 13:02:07</column>
+            <column name="updated_at">2023-03-27 09:21:55</column>
+        </table>
+        <table name="blogs">
+            <column name="id">11</column>
+            <column name="title">Yapay zeka nedir? Hangi amaçlarla kullanılır?</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">images/vA0Re3VWyMnSmJhU7hi4Ucp0MMn0Ju4ma17dMijo.jpg</column>
+            <column name="category_id">3</column>
+            <column name="user_id">1</column>
+            <column name="detail">Yapay zeka (YZ) veya İngilizce adıyla artificial intelligence (AI), bir bilgisayar sisteminin insan benzeri şekilde düşünebilmesine, öğrenebilmesine, karar verebilmesine ve problem çözebilmesine olanak tanıyan bir bilgisayar teknolojisi alanıdır. YZ, insanların dijital ortamda doğal olarak yapabileceği pek çok görevi gerçekleştirebilir ve bunları uygun koşullar altında daha hızlı, daha doğru ve daha verimli bir şekilde yapabilir.
+
+Yapay zeka birçok farklı teknik ve yaklaşımı içerir. Bunlar arasında makine öğrenmesi (machine learning) (?), doğal dil işleme, derin öğrenme (deep learning) (?), görüntü işleme, uzman sistemler ve robotik (?) gibi teknolojiler bulunur. Makine öğrenmesi, YZ’nin en popüler yaklaşımıdır ve bir bilgisayarın belirli bir görevi gerçekleştirmek için verileri analiz edip model öğrenmesine olanak tanır. Derin öğrenme ise, yapay sinir ağları kullanarak çok sayıda veri setini analiz etme yeteneğine dayanır.</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-26 13:02:47</column>
+            <column name="updated_at">2023-03-27 09:17:27</column>
+        </table>
+        <!-- Tablo categories -->
+        <table name="categories">
+            <column name="id">1</column>
+            <column name="title">Kişisel Gelişim</column>
+            <column name="keywords">Kişisel Gelişim</column>
+            <column name="description">NULL</column>
+            <column name="image">NULL</column>
+            <column name="created_at">NULL</column>
+            <column name="updated_at">NULL</column>
+        </table>
+        <table name="categories">
+            <column name="id">2</column>
+            <column name="title">Bilim</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">NULL</column>
+            <column name="created_at">NULL</column>
+            <column name="updated_at">NULL</column>
+        </table>
+        <table name="categories">
+            <column name="id">3</column>
+            <column name="title">Teknoloji</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">NULL</column>
+            <column name="created_at">NULL</column>
+            <column name="updated_at">NULL</column>
+        </table>
+        <table name="categories">
+            <column name="id">12</column>
+            <column name="title">denemell</column>
+            <column name="keywords">NULL</column>
+            <column name="description">NULL</column>
+            <column name="image">NULL</column>
+            <column name="created_at">NULL</column>
+            <column name="updated_at">2023-03-27 09:40:50</column>
+        </table>
+        <!-- Tablo comments -->
+        <table name="comments">
+            <column name="id">1</column>
+            <column name="comment">hhghgh</column>
+            <column name="blog_id">1</column>
+            <column name="user_id">1</column>
+            <column name="status">True</column>
+            <column name="created_at">NULL</column>
+            <column name="updated_at">NULL</column>
+        </table>
+        <table name="comments">
+            <column name="id">3</column>
+            <column name="comment">guzel</column>
+            <column name="blog_id">5</column>
+            <column name="user_id">1</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-27 08:02:33</column>
+            <column name="updated_at">2023-03-27 10:24:08</column>
+        </table>
+        <table name="comments">
+            <column name="id">4</column>
+            <column name="comment">dddd</column>
+            <column name="blog_id">1</column>
+            <column name="user_id">1</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-27 08:03:56</column>
+            <column name="updated_at">2023-03-27 10:24:11</column>
+        </table>
+        <table name="comments">
+            <column name="id">5</column>
+            <column name="comment">iyi</column>
+            <column name="blog_id">1</column>
+            <column name="user_id">2</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-27 08:15:53</column>
+            <column name="updated_at">2023-03-27 10:24:03</column>
+        </table>
+        <table name="comments">
+            <column name="id">7</column>
+            <column name="comment">güzel yazı</column>
+            <column name="blog_id">10</column>
+            <column name="user_id">2</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-27 09:11:10</column>
+            <column name="updated_at">2023-03-27 10:23:45</column>
+        </table>
+        <table name="comments">
+            <column name="id">8</column>
+            <column name="comment">iyiii</column>
+            <column name="blog_id">5</column>
+            <column name="user_id">2</column>
+            <column name="status">True</column>
+            <column name="created_at">2023-03-27 09:43:32</column>
+            <column name="updated_at">2023-03-27 10:22:28</column>
+        </table>
+        <!-- Tablo failed_jobs -->
+        <!-- Tablo migrations -->
+        <table name="migrations">
+            <column name="id">1</column>
+            <column name="migration">2014_10_12_000000_create_users_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">2</column>
+            <column name="migration">2014_10_12_100000_create_password_reset_tokens_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">3</column>
+            <column name="migration">2014_10_12_200000_add_two_factor_columns_to_users_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">4</column>
+            <column name="migration">2019_08_19_000000_create_failed_jobs_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">5</column>
+            <column name="migration">2019_12_14_000001_create_personal_access_tokens_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">6</column>
+            <column name="migration">2020_05_21_100000_create_teams_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">7</column>
+            <column name="migration">2020_05_21_200000_create_team_user_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">8</column>
+            <column name="migration">2020_05_21_300000_create_team_invitations_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">9</column>
+            <column name="migration">2023_03_23_093732_create_sessions_table</column>
+            <column name="batch">1</column>
+        </table>
+        <table name="migrations">
+            <column name="id">10</column>
+            <column name="migration">2023_03_24_105602_create_categories_table</column>
+            <column name="batch">2</column>
+        </table>
+        <table name="migrations">
+            <column name="id">11</column>
+            <column name="migration">2023_03_24_133634_create_blogs_table</column>
+            <column name="batch">3</column>
+        </table>
+        <table name="migrations">
+            <column name="id">12</column>
+            <column name="migration">2023_03_24_134008_blog</column>
+            <column name="batch">3</column>
+        </table>
+        <table name="migrations">
+            <column name="id">13</column>
+            <column name="migration">2023_03_25_115811_blog</column>
+            <column name="batch">4</column>
+        </table>
+        <table name="migrations">
+            <column name="id">14</column>
+            <column name="migration">2023_03_25_123819_blog</column>
+            <column name="batch">5</column>
+        </table>
+        <table name="migrations">
+            <column name="id">15</column>
+            <column name="migration">2023_03_25_161815_create_comments_table</column>
+            <column name="batch">6</column>
+        </table>
+        <table name="migrations">
+            <column name="id">16</column>
+            <column name="migration">2023_03_25_162024_comment</column>
+            <column name="batch">6</column>
+        </table>
+        <table name="migrations">
+            <column name="id">17</column>
+            <column name="migration">2023_03_26_092146_users</column>
+            <column name="batch">7</column>
+        </table>
+        <!-- Tablo password_reset_tokens -->
+        <!-- Tablo personal_access_tokens -->
+        <!-- Tablo sessions -->
+        <table name="sessions">
+            <column name="id">rC5PRcTGyMBzWd15zkCioaOr5ThLlbdCw5S9XiL7</column>
+            <column name="user_id">2</column>
+            <column name="ip_address">127.0.0.1</column>
+            <column name="user_agent">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</column>
+            <column name="payload">YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYkVkWkk0RUNlQlRna1h0bGN1bk9ZNDZUNUpUZXhxUktqYUJ4SGwwcyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jb21tZW50cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==</column>
+            <column name="last_activity">1679911173</column>
+        </table>
+        <table name="sessions">
+            <column name="id">RJ9zk8PIC0G4iEtO11syAjywouO8JyYhGey4HZqj</column>
+            <column name="user_id">2</column>
+            <column name="ip_address">127.0.0.1</column>
+            <column name="user_agent">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36</column>
+            <column name="payload">YTo1OntzOjY6Il90b2tlbiI7czo0MDoiRExGQW0yOWU5YnUwQWdsUjNQQkZKTGRTT0k4OUpJQjFRNTB0bWc0NiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjI7fQ==</column>
+            <column name="last_activity">1679913129</column>
+        </table>
+        <!-- Tablo teams -->
+        <table name="teams">
+            <column name="id">1</column>
+            <column name="user_id">1</column>
+            <column name="name">sevval&#039;s Team</column>
+            <column name="personal_team">1</column>
+            <column name="created_at">2023-03-24 09:53:50</column>
+            <column name="updated_at">2023-03-24 09:53:50</column>
+        </table>
+        <table name="teams">
+            <column name="id">2</column>
+            <column name="user_id">2</column>
+            <column name="name">ali&#039;s Team</column>
+            <column name="personal_team">1</column>
+            <column name="created_at">2023-03-25 11:19:09</column>
+            <column name="updated_at">2023-03-25 11:19:09</column>
+        </table>
+        <!-- Tablo team_invitations -->
+        <!-- Tablo team_user -->
+        <!-- Tablo users -->
+        <table name="users">
+            <column name="id">1</column>
+            <column name="name">sevval</column>
+            <column name="email">sevval@mail.com</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$JH60dPduPke4vrs54/k1kO6TxUGKQh6uCo6QHtgYeTCYRT/R0gGRa</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">1</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-24 09:53:50</column>
+            <column name="updated_at">2023-03-24 09:53:51</column>
+        </table>
+        <table name="users">
+            <column name="id">2</column>
+            <column name="name">ali</column>
+            <column name="email">ali@m</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$P9GsQ8cUQ19agqKag/E6PuHiAU2Pof2hBDGz2OTvqlMO2J27uhmma</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">2</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-25 11:19:09</column>
+            <column name="updated_at">2023-03-25 12:44:22</column>
+        </table>
+        <table name="users">
+            <column name="id">3</column>
+            <column name="name">uye1</column>
+            <column name="email">uye1@maiil.com</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$k2s9JPJsVgBfxqchKApqdubBO5m56cYGyugYtqoxv3ZGFgxGlZ8wq</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">NULL</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-26 09:14:03</column>
+            <column name="updated_at">2023-03-26 09:14:03</column>
+        </table>
+        <table name="users">
+            <column name="id">4</column>
+            <column name="name">uye2</column>
+            <column name="email">uye2@maiil.com</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$cH0SHadPFzvb3jpQ4Ql5ZegnZrY8Ijfs5F4NUOG.ac4/N8KhIg8XW</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">NULL</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">Cinema Vizyon A.Ş.</column>
+            <column name="created_at">2023-03-26 09:23:12</column>
+            <column name="updated_at">2023-03-26 09:23:12</column>
+        </table>
+        <table name="users">
+            <column name="id">5</column>
+            <column name="name">uye3</column>
+            <column name="email">uye3@m</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$BI9K8YfXFQTwAo.ZkCWwdepKVCU69GBC/F7mFbnY0BK0b5Su.Zdyq</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">NULL</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">aaaa</column>
+            <column name="created_at">2023-03-27 07:45:00</column>
+            <column name="updated_at">2023-03-27 07:45:00</column>
+        </table>
+        <!-- Tablo users1 -->
+        <table name="users1">
+            <column name="id">1</column>
+            <column name="name">sevval</column>
+            <column name="email">sevval@mail.com</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$JH60dPduPke4vrs54/k1kO6TxUGKQh6uCo6QHtgYeTCYRT/R0gGRa</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">1</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-24 09:53:50</column>
+            <column name="updated_at">2023-03-24 09:53:51</column>
+        </table>
+        <table name="users1">
+            <column name="id">2</column>
+            <column name="name">ali</column>
+            <column name="email">ali@m</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$P9GsQ8cUQ19agqKag/E6PuHiAU2Pof2hBDGz2OTvqlMO2J27uhmma</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">2</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-25 11:19:09</column>
+            <column name="updated_at">2023-03-25 12:44:22</column>
+        </table>
+        <table name="users1">
+            <column name="id">3</column>
+            <column name="name">uye1</column>
+            <column name="email">uye1@maiil.com</column>
+            <column name="email_verified_at">NULL</column>
+            <column name="password">$2y$10$k2s9JPJsVgBfxqchKApqdubBO5m56cYGyugYtqoxv3ZGFgxGlZ8wq</column>
+            <column name="two_factor_secret">NULL</column>
+            <column name="two_factor_recovery_codes">NULL</column>
+            <column name="two_factor_confirmed_at">NULL</column>
+            <column name="remember_token">NULL</column>
+            <column name="current_team_id">NULL</column>
+            <column name="profile_photo_path">NULL</column>
+            <column name="company">NULL</column>
+            <column name="created_at">2023-03-26 09:14:03</column>
+            <column name="updated_at">2023-03-26 09:14:03</column>
+        </table>
+    </database>
+</pma_xml_export>
