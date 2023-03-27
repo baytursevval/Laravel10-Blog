@@ -73,6 +73,7 @@
                         </div><!-- end media -->
 
                         <div class="blog-content">
+
                             <div class="card-body">
                                 <h4 class="card-title">Kategoriler </h4>
                                 @auth
@@ -83,14 +84,11 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Tür</th>
-
                                             <th>Düzenleme</th>
                                             <th>Silme</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-
-
                                         </tbody>
                                         @foreach($datalist as $rs)
                                             <tr>
@@ -102,13 +100,14 @@
                                             </tr>
                                     @endforeach
                                 </div>
-                                <button style="color: white" type="submit" class="btn btn-success btn-fw"><a href="{{route('category_add')}}">Yeni Kategori</a> </button>
-                                <table class="table">
+
+                                <div class="col-lg-12">
+
+                                </div>
 
 
 
                             </div>
-
 
                         </div><!-- end content -->
 
@@ -144,6 +143,7 @@
 
                 </div><!-- end col -->
             </div><!-- end row -->
+
         </div><!-- end container -->
     </section>
 @include('home._footer')

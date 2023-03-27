@@ -1,15 +1,30 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+$datalist_slider = DB::table('blogs')->get();
+$datalist_category=DB::table('categories')->get();
+foreach ($datalist_category as $rs)
+    if ($rs->id == $datalist_slider[1]->category_id)
+        $cname=$rs->title;
+?>
+
 <section class="section first-section">
     <div class="container-fluid">
         <div class="masonry-blog clearfix">
             <div class="first-slot">
                 <div class="masonry-box post-media">
-                    <img src="{{asset('assets')}}/upload/tech_01.jpg" alt="" class="img-fluid">
+                    <?php
+                    foreach ($datalist_category as $rs)
+                        if ($rs->id == $datalist_slider[0]->category_id)
+                            $cname=$rs->title;
+                    ?>
+                   <img src="{{asset('')}}storage/{{$datalist_slider[0]->image}}" alt="" class="img-fluid" style="height:300px; width:700px">
                     <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">Say hello to real handmade office furniture! Clean & beautiful design</a></h4>
-                                <small><a href="tech-single.html" title="">24 July, 2017</a></small>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{$cname}}</a></span>
+                                <h4><a href="{{route('blogdetay',['blog_id'=>$datalist_slider[0]->id])}}" title="">{{$datalist_slider[0]->title}}</a></h4>
+                                <small><a href="tech-single.html" title="">{{$datalist_slider[0]->created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">by Amanda</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
@@ -19,13 +34,18 @@
 
             <div class="second-slot">
                 <div class="masonry-box post-media">
-                    <img src="{{asset('assets')}}/upload/tech_02.jpg" alt="" class="img-fluid">
+                    <?php
+                    foreach ($datalist_category as $rs)
+                        if ($rs->id == $datalist_slider[1]->category_id)
+                            $cname=$rs->title;
+                    ?>
+                    <img src="{{asset('')}}storage/{{$datalist_slider[1]->image}}" alt="" class="img-fluid" style="height: 300px; width: 400px">
                     <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Gadgets</a></span>
-                                <h4><a href="tech-single.html" title="">Do not make mistakes when choosing web hosting</a></h4>
-                                <small><a href="tech-single.html" title="">03 July, 2017</a></small>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{$cname}}</a></span>
+                                <h4><a href="{{route('blogdetay',['blog_id'=>$datalist_slider[1]->id])}}" title="">{{$datalist_slider[1]->title}}</a></h4>
+                                <small><a href="tech-single.html" title="">{{$datalist_slider[1]->created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">by Jessica</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->
@@ -33,15 +53,20 @@
                 </div><!-- end post-media -->
             </div><!-- end second-side -->
 
-            <div class="last-slot">
+            <div class="last-slot" >
                 <div class="masonry-box post-media">
-                    <img src="{{asset('assets')}}/upload/tech_03.jpg" alt="" class="img-fluid">
+                    <?php
+                    foreach ($datalist_category as $rs)
+                        if ($rs->id == $datalist_slider[2]->category_id)
+                            $cname=$rs->title;
+                    ?>
+                    <img src="{{asset('')}}storage/{{$datalist_slider[2]->image}}" alt="" class="img-fluid" style="height: 300px; width: 400px">
                     <div class="shadoweffect">
                         <div class="shadow-desc">
                             <div class="blog-meta">
-                                <span class="bg-orange"><a href="tech-category-01.html" title="">Technology</a></span>
-                                <h4><a href="tech-single.html" title="">The most reliable Galaxy Note 8 images leaked</a></h4>
-                                <small><a href="tech-single.html" title="">01 July, 2017</a></small>
+                                <span class="bg-orange"><a href="tech-category-01.html" title="">{{$cname}}</a></span>
+                                <h4><a href="{{route('blogdetay',['blog_id'=>$datalist_slider[2]->id])}}" title="">{{$datalist_slider[2]->title}}</a></h4>
+                                <small><a href="tech-single.html" title="">{{$datalist_slider[2]->created_at}}</a></small>
                                 <small><a href="tech-author.html" title="">by Jessica</a></small>
                             </div><!-- end meta -->
                         </div><!-- end shadow-desc -->

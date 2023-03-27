@@ -59,15 +59,55 @@
                         @auth
                         @endauth
                         <div class="custombox clearfix">
-                            <h4 class="small-title">Kategori Düzenle</h4>
+                            <h4 class="small-title">Yeni Blog</h4>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="{{route('category_update',['id'=>$id])}}" method="post" class="forms-sample" enctype="multipart/form-data">
+                                    <form action="{{route('blog_update',['blogid'=>$blogid])}}" method="post" class="forms-sample" enctype="multipart/form-data">
                                         <br>
                                         @csrf
+
                                         <div class="form-group" style="width: 600px">
-                                            <label >Kategori Başlığı</label>
+                                            <label >Blog Resmi </label> <br>
+                                            @if ($data->image)
+                                                <img src="{{asset('')}}storage/{{$data->image}}" style="width: 250px">
+                                                <br>
+                                            @endif
+                                            <input type="file" class="form-control" name="image" >
+                                        </div>
+
+                                        <div class="form-group" style="width: 600px">
+                                            <label >Blog Başlığı</label>
                                             <input type="text" class="form-control" name="title" value="{{$data->title}}" >
+                                        </div>
+
+
+                                        <div class="form-group" style="width: 600px">
+                                            <label>Desc</label>
+                                            <textarea class="form-control" name="detail" {{$data->detail}} style="height: 300px" >{{$data->detail}}</textarea>
+
+                                        </div>
+
+
+
+
+                                        <div class="form-group" style="width: 600px">
+                                            <label for="exampleSelectGender">Category </label>
+                                            <select class="form-control" name="category_id">
+                                                @foreach($data_category as $rs)
+                                                    <option value="{{$rs->id}}">{{$rs->title}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+
+
+
+                                        <div class="form-group" style="width: 600px">
+                                            <label for="exampleSelectGender">Status</label>
+                                            <select class="form-control" name="status">
+                                                <option>True</option>
+                                                <option>False</option>
+                                            </select>
                                         </div>
                                         <br><br>
                                         <button type="submit" class="btn btn-primary mr-2">Oluştur</button>

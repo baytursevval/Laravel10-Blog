@@ -52,26 +52,38 @@
     <section class="section single-wrapper">
         <div class="container">
             <div class="row">
-
                 <div class="blog-content">
                     <div class="card-body">
-
                         @auth
                         @endauth
                         <div class="custombox clearfix">
-                            <h4 class="small-title">Kategori Düzenle</h4>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="{{route('category_update',['id'=>$id])}}" method="post" class="forms-sample" enctype="multipart/form-data">
-                                        <br>
-                                        @csrf
-                                        <div class="form-group" style="width: 600px">
-                                            <label >Kategori Başlığı</label>
-                                            <input type="text" class="form-control" name="title" value="{{$data->title}}" >
-                                        </div>
-                                        <br><br>
-                                        <button type="submit" class="btn btn-primary mr-2">Oluştur</button>
-                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Blog</th>
+                                                <th>Yorum</th>
+                                                <th>Status</th>
+                                                <th>Tarih</th>
+                                                <th>Sil</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                            @foreach($datalist_comments as $rs)
+                                                <tr>
+
+                                                    <td>{{$rs->blog_id}}</td>
+                                                    <td>{{$rs->comment}}</td>
+                                                    <td>{{$rs->status}}</td>
+                                                    <td>{{$rs->created_at}}</td>
+                                                    <td><a href="{{route('del_comment',['id'=>$rs->id])}}" onclick="return confirm('Delete ! Are you sure?')">Delete</a></td>
+                                                </tr>
+                                            @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>

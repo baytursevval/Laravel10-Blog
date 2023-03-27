@@ -47,14 +47,31 @@
 </head>
 <body>
 <div id="wrapper">
-@include('home._header')
+    @include('home._header')
 
-@include('home._firstSection')
+    <section class="section single-wrapper">
+        <div class="custombox clearfix">
 
+            <div class="row">
+                <div class="col-lg-4">
+                </div>
 
-@include('home._section')
+                <div class="col-lg-4" style="border: solid; padding: 40px">
+                    <h4 class="small-title">Giriş Yap</h4><br><br>
+                    <form action="{{route('logincheck')}}" method="post"  class="form-wrapper">
+                        @csrf
+                        <input type="email" class="form-control"name="email" placeholder="Email address">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
 
-
+                        <button type="submit" class="btn btn-primary">Giriş</button>
+                        <p class="form-control">Hesabın yok mu?
+                            <a href="{{route('signup')}}">Üye Ol</a></p>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                </div>
+            </div>
+        </div>
+    </section>
 @include('home._footer')
-
-
+@show

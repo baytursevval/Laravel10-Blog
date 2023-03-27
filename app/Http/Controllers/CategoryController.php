@@ -14,7 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $datalist = DB::table('categories')->get();
-        return view('home.category', ['datalist'=>$datalist]);
+        return view('home.category1', ['datalist'=>$datalist]);
     }
 
     /**
@@ -31,12 +31,15 @@ class CategoryController extends Controller
         ]);
         return redirect()->route('admin_category');
     }
-    public function add()
+    public function add(Request $request)
     {
+        DB::table('categories')->insert([
+
+            'title'=>$request->input('category'),
+
+        ]);
         $datalist = DB::table('categories')->get();
-
-        return view('home.category_add', ['datalist'=>$datalist]);
-
+        return view('home.category1', ['datalist'=>$datalist]);
     }
 
     /**
@@ -60,19 +63,18 @@ class CategoryController extends Controller
      */
     public function edit(Category $category,$id)
     {
-        echo "edit category";
-        //$data=Category::find($id);
-       // $datalist = DB::table('categories')->get();
-        //return view('home.category_edit', ['data'=>$data, 'datalist'=>$datalist]);
+
+        $data=Category::find($id);
+        $datalist = DB::table('categories')->get();
+        return view('home.category_edit', ['data'=>$data, 'datalist'=>$datalist]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category,$id)
+    public function update(Request $request, Category $category, $id)
     {
         $data=Category::find($id);
-        $data->parent_id = $request->input('parent_id');
         $data->title = $request->input('title');
         $data->keywords = $request->input('keywords');
         $data->description = $request->input('description');

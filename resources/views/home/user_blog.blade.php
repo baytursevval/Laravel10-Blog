@@ -52,26 +52,40 @@
     <section class="section single-wrapper">
         <div class="container">
             <div class="row">
-
                 <div class="blog-content">
                     <div class="card-body">
-
                         @auth
                         @endauth
                         <div class="custombox clearfix">
-                            <h4 class="small-title">Kategori Düzenle</h4>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <form action="{{route('category_update',['id'=>$id])}}" method="post" class="forms-sample" enctype="multipart/form-data">
-                                        <br>
-                                        @csrf
-                                        <div class="form-group" style="width: 600px">
-                                            <label >Kategori Başlığı</label>
-                                            <input type="text" class="form-control" name="title" value="{{$data->title}}" >
-                                        </div>
-                                        <br><br>
-                                        <button type="submit" class="btn btn-primary mr-2">Oluştur</button>
-                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th>Resim</th>
+                                                <th>İçerik</th>
+                                                <th>Düzenleme</th>
+                                                <th>Silme</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                            @foreach($datalist as $rs)
+                                                <tr>
+                                                    <td>
+                                                        @if ($rs->image)
+                                                            <img src="{{asset('')}}storage/{{$rs->image}}" style="width: 100px">
+
+                                                        @endif</td>
+                                                    <td>{{$rs->title}}</td>
+
+                                                    <td><a href="{{route('blog_edit', ['blogid'=>$rs->id])}}">Edit</a></td>
+                                                    <td><a href="{{route('blog_delete', ['blogid'=>$rs->id])}}" onclick="return confirm('Delete ! Are you sure?')">Delete</a></td>
+                                                </tr>
+                                            @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>

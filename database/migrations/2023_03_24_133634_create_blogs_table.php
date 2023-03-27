@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image',100)->nullable();
             $table->integer('category_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->string('detail')->nullable();
+            $table->text('detail')->nullable();
             $table->string('status')->nullable()->default('False');
             $table->timestamps();
         });

@@ -47,14 +47,10 @@
 </head>
 <body>
 <div id="wrapper">
-@include('home._header')
+    @include('home._header')
 
-@include('home._firstSection')
+    <section class="section single-wrapper">
 
-
-@include('home._section')
-
-
+    </section>
 @include('home._footer')
-
-
+@show

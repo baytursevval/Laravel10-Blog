@@ -55,31 +55,54 @@
 
                 <div class="blog-content">
                     <div class="card-body">
-
+                        <h4 class="card-title">Kategoriler </h4>
                         @auth
                         @endauth
-                        <div class="custombox clearfix">
-                            <h4 class="small-title">Kategori Düzenle</h4>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <form action="{{route('category_update',['id'=>$id])}}" method="post" class="forms-sample" enctype="multipart/form-data">
-                                        <br>
-                                        @csrf
-                                        <div class="form-group" style="width: 600px">
-                                            <label >Kategori Başlığı</label>
-                                            <input type="text" class="form-control" name="title" value="{{$data->title}}" >
-                                        </div>
-                                        <br><br>
-                                        <button type="submit" class="btn btn-primary mr-2">Oluştur</button>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tür</th>
+
+                                    <th>Düzenleme</th>
+                                    <th>Silme</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                </tbody>
+                                @foreach($datalist as $rs)
+                                    <tr>
+                                        <td>{{$rs->id}}</td>
+                                        <td>{{$rs->title}}</td>
+
+                                        <td><a href="{{route('category_edit', ['id'=>$rs->id])}}">Edit</a></td>
+                                        <td><a href="{{route('category_delete', ['id'=>$rs->id])}}" onclick="return confirm('Delete ! Are you sure?')">Delete</a></td>
+                                    </tr>
+                            @endforeach
                         </div>
+                        <table class="table">
+                            <form action="{{route('category_add')}}" method="post"  class="form-wrapper">
+                                @csrf
+                                <input type="text" name="category" style="width: 150px">
+                                <button style="color: white" type="submit" class="btn btn-success btn-fw">Yeni Kategori</button>
+                            </form>
+
 
                     </div>
 
-                </div><!-- end content -->
 
+                </div><!-- end content -->
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+
+                </div><!-- end col -->
 
 
             </div><!-- end row -->
