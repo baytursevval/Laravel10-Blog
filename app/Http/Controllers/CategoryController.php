@@ -66,7 +66,7 @@ class CategoryController extends Controller
 
         $data=Category::find($id);
         $datalist = DB::table('categories')->get();
-        return view('home.category_edit', ['data'=>$data, 'datalist'=>$datalist]);
+        return view('home.category_edit', ['data'=>$data, 'datalist'=>$datalist,'id'=>$id]);
     }
 
     /**
@@ -78,7 +78,7 @@ class CategoryController extends Controller
         $data->title = $request->input('title');
         $data->keywords = $request->input('keywords');
         $data->description = $request->input('description');
-        $data->status= $request->input('status');
+
         $data->save();
 
         return redirect()->route('category');

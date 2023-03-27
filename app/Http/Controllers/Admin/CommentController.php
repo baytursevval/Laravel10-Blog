@@ -44,11 +44,8 @@ class CommentController extends Controller
     }
     public function adminupdate(Request $request, Comment $comment, $id)
     {
-        //echo   "aa"; exit();
+
         $data=Comment::find($id);
-        // echo $data->status; echo "<br>";
-        //echo $request->input('status'); echo "<br>";
-        //exit();
         $data->status=$request->input('status');
         $data->save();
         return back()->with('success', 'Yorum Güncellendi');

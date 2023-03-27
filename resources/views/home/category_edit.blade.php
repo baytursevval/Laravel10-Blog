@@ -67,6 +67,7 @@
                                         @csrf
                                         <div class="form-group" style="width: 600px">
                                             <label >Kategori Başlığı</label>
+
                                             <input type="text" class="form-control" name="title" value="{{$data->title}}" >
                                         </div>
                                         <br><br>
